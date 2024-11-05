@@ -252,13 +252,12 @@ app.post('/api/email-caixa', async(req, res) => {
     }
 });
 
-// Iniciar o servidor
-app.listen(PORT, () => {
-    console.log(`Servidor intermediário está rodando na porta ${PORT}`);
-});
+// // Iniciar o servidor
+// app.listen(PORT, () => {
+//     console.log(`Servidor intermediário está rodando na porta ${PORT}`);
+// });
 
 const server = https.createServer(credentials, app);
-
 
 server.listen(PORT, () => {
     console.log(`Servidor rodando em https://localhost:${PORT}`);
