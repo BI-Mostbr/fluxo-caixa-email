@@ -55,6 +55,7 @@ app.post('/api/email-caixa', async(req, res) => {
         const prazo = data.prazo;
         const ITBI = data.ITBI;
         const FGTS = data.FGTS;
+        const avaliacaoAprovada = data.avaliacaoAprovada
         //////////
         const valorAvaliacao = data.valorAvaliacao
         //////////
@@ -65,13 +66,22 @@ app.post('/api/email-caixa', async(req, res) => {
 
         let alteraStatusSituacao;
         let alteraStatusSituacaoText;
+        let incluirstatus;
+
+        if(statusAtual === statusAnterior) {
+            incluirstatus = `<p>Mudança de Situação de <u><i>${situacaoAnterior}</u></i> para <b><i>${situacaoAtual}</i></b>.</p>`;
+        } else if(situacaoAnterior === situacaoAtual) {
+            incluirstatus = `<p>Mudança de Status de <u><i>${statusAnterior}</u></i> para <b><i>${statusAtual}</i></b>.<p>`; 
+        } else {
+            incluirstatus = `<p>Mudança de Status de <u><i>${statusAnterior}</u></i> para <b><i>${statusAtual}</i></b>.
+                                        <br>
+                                        <br>
+                                        Mudança de Situação de <u><i>${situacaoAnterior}</u></i> para <b><i>${situacaoAtual}</i></b>.</p>`
+        }
 
         if(statusAtual === "Crédito" && situacaoAtual == "APROVADO" || statusAtual === "Conf Valores" && situacaoAtual === "PENDENTE") {
             alteraStatusSituacao = "ambos";
-            alteraStatusSituacaoText = `<p>Mudança de Status de <u><i>${statusAnterior}</u></i> para <b><i>${statusAtual}</i></b>.
-                                        <br>
-                                        <br>
-                                        Mudança de Situação de <u><i>${situacaoAnterior}</u></i> para <b><i>${situacaoAtual}</i></b>.
+            alteraStatusSituacaoText = `<p>${incluirstatus}.
                                         <br>
                                         <br>
                                         Valor Compra e Venda: <b>${valorCompraEVenda}</b>
@@ -92,25 +102,28 @@ app.post('/api/email-caixa', async(req, res) => {
                                         ITBI: <b>${ITBI}</b>
                                         <br>
                                         <br>
-                                        FGTS: <b>${FGTS}</b></p>`;
+                                        FGTS: <b>${FGTS}</b>
+                                        <br>
+                                        <br>
+                                        Logo ele se encontra no status ${statusAtual} e situação ${situacaoAtual}.</p>`;
         } else if(statusAtual === "Checklist" && situacaoAtual == "PENDENTE") {
             alteraStatusSituacao = "ambos";
-            alteraStatusSituacaoText = `<p>Mudança de Status de <u><i>${statusAnterior}</u></i> para <b><i>${statusAtual}</i></b>.
-                                        <br>
-                                        <br>
-                                        Mudança de Situação de <u><i>${situacaoAnterior}</u></i> para <b><i>${situacaoAtual}</i></b>.
+            alteraStatusSituacaoText = `<p>${incluirstatus}.
                                         <br>
                                         <br>
                                         Valor da avaliação: <b>${valorAvaliacao}</b>
                                         <br>
                                         <br>
-                                        Avaliação Aprovada: <b>Sim</b><p>`;
+                                        Avaliação Aprovada: <b>${avaliacaoAprovada}</b>
+                                        <br>
+                                        <br>
+                                        Avaliação Aprovada: <b>Sim</b>
+                                        <br>
+                                        <br>
+                                        Logo ele se encontra no status ${statusAtual} e situação ${situacaoAtual}.<p>`;
         } else if(statusAtual === "Conf Valores" && situacaoAtual == "EM ANÁLISE") {
             alteraStatusSituacao = "ambos";
-            alteraStatusSituacaoText = `<p>Mudança de Status de <u><i>${statusAnterior}</u></i> para <b><i>${statusAtual}</i></b>.
-                                        <br>
-                                        <br>
-                                        Mudança de Situação de <u><i>${situacaoAnterior}</u></i> para <b><i>${situacaoAtual}</i></b>.
+            alteraStatusSituacaoText = `<p>${incluirstatus}.
                                         <br>
                                         <br>
                                         Data de Agendamento: <b>${dataDeAgendamento}</b>
@@ -119,13 +132,16 @@ app.post('/api/email-caixa', async(req, res) => {
                                         Horário: <b>${horario}</b>
                                         <br>
                                         <br>
-                                        Local: <b>${local}</b><p>`;
+                                        Local: <b>${local}</b>
+                                        <br>
+                                        <br>
+                                        Logo ele se encontra no status ${statusAtual} e situação ${situacaoAtual}.<p>`;
         } else {
             alteraStatusSituacao = "ambos";
-            alteraStatusSituacaoText = `<p>Mudança de Status de <u><i>${statusAnterior}</u></i> para <b><i>${statusAtual}</i></b>.
+            alteraStatusSituacaoText = `<p>${incluirstatus}.
                                         <br>
                                         <br>
-                                        Mudança de Situação de <u><i>${situacaoAnterior}</u></i> para <b><i>${situacaoAtual}</i></b>.</p>`
+                                        Logo ele se encontra no status ${statusAtual} e situação ${situacaoAtual}.</p>`
         }
 
         // Envia email
