@@ -115,9 +115,6 @@ app.post('/api/email-caixa', async(req, res) => {
                                         Avaliação Aprovada: <b>${avaliacaoAprovada}</b>
                                         <br>
                                         <br>
-                                        Avaliação Aprovada: <b>Sim</b>
-                                        <br>
-                                        <br>
                                         Logo ele se encontra no status <b>${statusAtual}</b> e situação <b>${situacaoAtual}</b>.<p>`;
         } else if(statusAtual === "Conf Valores" && situacaoAtual == "EM ANÁLISE") {
             alteraStatusSituacao = "ambos";
