@@ -79,7 +79,7 @@ app.post('/api/email-caixa', async(req, res) => {
                                         Mudança de Situação de <u><i>${situacaoAnterior}</u></i> para <b><i>${situacaoAtual}</i></b>.</p>`
         }
 
-        if(statusAtual === "Crédito" && situacaoAtual == "APROVADO" || statusAtual === "Conf Valores" && situacaoAtual === "PENDENTE") {
+        if(statusAtual === "Crédito" && situacaoAtual == "APROVADO") {
             alteraStatusSituacao = "ambos";
             alteraStatusSituacaoText = `<p>${incluirstatus}
                                         <br>
@@ -116,9 +116,28 @@ app.post('/api/email-caixa', async(req, res) => {
                                         <br>
                                         <br>
                                         Logo ele se encontra no status <b>${statusAtual}</b> e situação <b>${situacaoAtual}</b>.<p>`;
-        } else if(statusAtual === "Conf Valores" && situacaoAtual == "EM ANÁLISE") {
+        } else if(statusAtual === "Conf Valores" && situacaoAtual === "PENDENTE") {
             alteraStatusSituacao = "ambos";
             alteraStatusSituacaoText = `<p>${incluirstatus}
+                                        Valor Compra e Venda: <b>${valorCompraEVenda}</b>
+                                        <br>
+                                        <br>
+                                        Valor de Financiamento: <b>${valorFinanciamento}</b>
+                                        <br>
+                                        <br>
+                                        Valor Aprovado: <b>${valorAprovado}</b>
+                                        <br>
+                                        <br>
+                                        Taxa de Juros: <b>${taxaDeJuros}%</b>
+                                        <br>
+                                        <br>
+                                        Prazo: <b>${prazo} Meses</b>
+                                        <br>
+                                        <br>
+                                        ITBI: <b>${ITBI}</b>
+                                        <br>
+                                        <br>
+                                        FGTS: <b>${FGTS}</b>
                                         <br>
                                         Data de Agendamento: <b>${dataDeAgendamento}</b>
                                         <br>
