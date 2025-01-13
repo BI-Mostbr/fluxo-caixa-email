@@ -163,7 +163,7 @@ app.post('/api/email-caixa', async(req, res) => {
             secure: true,
             auth: {
                 user: 'notificacao.miracle@mostbr.com',
-                pass: 'Most123%',
+                pass: '8JsD2%>o5J0a',
             },
             tls: {
                 rejectUnauthorized: false
@@ -407,7 +407,7 @@ app.post('/api/email-caixa/consultor', async(req, res) => {
             secure: true,
             auth: {
                 user: 'notificacao.miracle@mostbr.com',
-                pass: 'Most123%',
+                pass: '8JsD2%>o5J0a',
             },
             tls: {
                 rejectUnauthorized: false
